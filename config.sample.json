@@ -1,0 +1,6 @@
+{
+
+  "token":"<bot token here>",
+  "ownerID":"<your user id>",
+  "prefix":"<the prefix you want to use for the commands>"
+}
