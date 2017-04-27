@@ -6,4 +6,4 @@ node_modules
 config.json
 
 #Commit Button
-Commit & Push.bat
+*.bat
