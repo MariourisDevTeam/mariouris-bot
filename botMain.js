@@ -1,93 +1,30 @@
-const Discord = require("discord.js");const bot = new Discord.Client();const fs = require("fs");const config = ("config.json");
+const Discord = require("discord.js");
+const client = new Discord.Client();
+const fs = require("fs");
+
+const config = require("./config.json");
 
 
-bot.login('Mjk5NzYwMTAyODA0NTUzNzI4.C9mJZQ.XSdcvLeBjuUAB4rIRriTpKd7KBA');
+module.exports = {};
 
-let prefix = ">";
+client.on("message", (message) => {
+    if (message.author.bot) return;
+    if (!message.content.startsWith(config.prefix)) return;
+    let command = message.content.split(" ")[0];
+    command = command.slice(config.prefix.length);
 
-
-
-
-
-
-
-bot.on("ready", () => {console.log("Bot Active");bot.setGame(prefix + "help for help");});bot.on("message", (msg) => {
-    if (!msg.content.startsWith(prefix)) return;
-    if (msg.author.bot) return;
-    if (msg.content.startsWith(prefix + "help")) {
-        
+    let args = message.content.split(" ").slice(1);
+    
+    try {
+        let commandFile = require(`./commands/${command}.js`);
+        commandFile.run(client, message, args);
+    } catch (err) {
+        console.error(err);
     }
-                                                                                                                      
-                                                                                                                      
 });
 
+client.on("ready", () => {
+    console.log("Mariouris Bot Initiated."); 
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//TO-DO PLANS
-/*
-Make cmd handler
-Make command files
-Put seperate commands in modules
-Make an enabled/disable script for the modules
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
+client.login(config.token);
